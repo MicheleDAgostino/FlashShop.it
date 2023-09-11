@@ -3,6 +3,7 @@
 use App\Http\Controllers\AnnouncementController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PublicController;
+use App\Http\Controllers\RevisorController;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,3 +27,8 @@ Route::middleware(['auth'])->group(function(){
 });
 
 Route::get('/tutti/annunci', [AnnouncementController::class, 'index'])->name('announcement.index');
+
+
+// ROTTE REVISOR CONTROLLER
+
+Route::get('/home/revisore', [RevisorController::class, 'index'])->name('revisor.index');
