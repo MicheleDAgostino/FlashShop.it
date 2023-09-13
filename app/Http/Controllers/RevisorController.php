@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 class RevisorController extends Controller
 {
     public function index(){
-        $announcement_to_check = Announcement::all()->where('is_accepted', null);
+        $announcement_to_check = Announcement::where('is_accepted', null)->get();
         return view('revisor.index', compact('announcement_to_check'));
     }
 

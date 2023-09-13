@@ -20,25 +20,15 @@
                           <!-- head -->
                           <thead>
                             <tr>
-                              <th>
-                                <label>
-                                  <input type="checkbox" class="checkbox" />
-                                </label>
-                              </th>
-                              <th>Name</th>
-                              <th>Job</th>
-                              <th>Favorite Color</th>
+                              <th>Titolo</th>
+                              <th>Autore</th>
+                              <th>Prezzo</th>
                               <th></th>
                             </tr>
                           </thead>
                           <tbody>
                             @foreach ($announcement_to_check as $announcement)
                             <tr>
-                                <th>
-                                  <label>
-                                    <input type="checkbox" class="checkbox" />
-                                  </label>
-                                </th>
                                 <td>
                                   <div class="flex items-center space-x-3">
                                     <div class="avatar">
@@ -55,9 +45,21 @@
                                 <td>
                                   {{$announcement->user->email}}
                                 </td>
-                                <td>{{$announcement->price}}</td>
+                                <td>{{$announcement->price}}€</td>
                                 <th>
-                                  <label for="my-drawer" class="btn btn-primary drawer-button" onclick="setSidebarContent('{{$announcement->body}}')">Open drawer</label>
+                                  <label for="my-drawer" class="btn drawer-button" onclick="setSidebarContent('{{$announcement->body}}')">Dettagli</label>
+                                </th>
+                                <th class="flex justify-around">
+                                  <form method="POST" action="{{route('revisor.accept_announcement', ['announcement' => $announcement])}}">
+                                    @csrf
+                                    @method('PATCH')
+                                    <button type="submit" class="btn btn-success">Accetta</button>
+                                  </form>
+                                  <form method="POST" action="{{route('revisor.reject_announcement', ['announcement' => $announcement])}}">
+                                    @csrf
+                                    @method('PATCH')
+                                    <button class="btn btn-error">Rifiuta</button>
+                                  </form>
                                 </th>
                               </tr>
                               @endforeach
@@ -76,9 +78,10 @@
                           <label for="my-drawer" class="drawer-overlay"></label>
                           <ul class="menu p-4 w-80 min-h-full bg-base-200 text-base-content">
                             <!-- Sidebar content here -->
-                            <li id="sidebarLI"></li>
-                            <li><a>Sidebar Item 2</a></li>
-                            
+                            <li>
+                              <p class="text-lg font-bold">Descrizione annuncio:</p>
+                              <p id="sidebarDescription"></p>
+                            </li>
                           </ul>
                         </div>
                       </div>
@@ -95,5 +98,12 @@
         {{-- FINE SECTION CON TABELLA DI ANNUNCI DA REVISIONARE --}}
 
     </main>
+
+    <script>
+      function setSidebarContent(body){
+          let sidebarDescription = document.querySelector('#sidebarDescription');
+          sidebarDescription.textContent = body;
+      }
+    </script>
 
 </x-layout>
