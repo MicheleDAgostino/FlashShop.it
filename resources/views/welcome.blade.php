@@ -2,7 +2,7 @@
     
     {{-- INIZIO HEADER HOMEPAGE --}}
     <header class="container">
-        <div class="flex justify-center items-center min-h-screen">
+        <div class="flex flex-wrap justify-center items-center min-h-screen">
             <h1 class="text-6xl">Compra e vendi in modo <strong class="underline decoration-wavy">FLASH</strong></h1>
         </div>
     </header>

@@ -18,27 +18,35 @@ use App\Http\Controllers\RevisorController;
 
 // ROTTE PUBLIC CONTROLLER
 Route::get('/', [PublicController::class, 'welcome'])->name('welcome');
-
+Route::get('/lavora/con/noi', [PublicController::class, 'workWithUs'])->name('workWithUs');
 
 // ROTTE ANNOUNCEMENT CONTROLLER
 
 Route::middleware(['auth'])->group(function(){
     Route::get('/nuovo/annuncio', [AnnouncementController::class, 'create'])->name('announcement.create');
     Route::get('/dettaglio/annuncio/{announcement}', [AnnouncementController::class, 'show'])->name('announcement.show');
-
-    // ROTTE REVISOR CONTROLLER
-    Route::get('/home/revisore', [RevisorController::class, 'index'])->name('revisor.index');
+    
+    // ROTTE REVISOR CONTROLLER PER DIVENTARE REVISORI
+    Route::post('/richiesta/revisore', [RevisorController::class, 'becomeRevisor'])->name('revisor.become');
+    Route::get('/diventa/revisore/{user}', [RevisorController::class, 'makeRevisor'])->name('revisor.make');
+    
 });
 
 Route::get('/tutti/annunci', [AnnouncementController::class, 'index'])->name('announcement.index');
 
 
-// ROTTE REVISORE PER ACCETTARE E RIFIUTARE ANNUNCIO
-
-Route::patch('/accetta/annuncio/{announcement}', [RevisorController::class, 'acceptAnnouncement'])->name('revisor.accept_announcement');
-Route::patch('/rifiuta/annuncio/{announcement}', [RevisorController::class, 'rejectAnnouncement'])->name('revisor.reject_announcement');
 
 
+// ROTTE ACCESSIBILI SOLO AI REVISORI
+
+Route::middleware(['IsRevisor'])->group(function(){
+    Route::get('/home/revisore', [RevisorController::class, 'index'])->name('revisor.index');
+
+    // ROTTE REVISORE PER ACCETTARE E RIFIUTARE ANNUNCIO  
+    Route::patch('/accetta/annuncio/{announcement}', [RevisorController::class, 'acceptAnnouncement'])->name('revisor.accept_announcement');
+    Route::patch('/rifiuta/annuncio/{announcement}', [RevisorController::class, 'rejectAnnouncement'])->name('revisor.reject_announcement');
+
+});
 
 
 
