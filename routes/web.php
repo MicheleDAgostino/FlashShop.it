@@ -19,6 +19,8 @@ use App\Http\Controllers\RevisorController;
 // ROTTE PUBLIC CONTROLLER
 Route::get('/', [PublicController::class, 'welcome'])->name('welcome');
 Route::get('/lavora/con/noi', [PublicController::class, 'workWithUs'])->name('workWithUs');
+Route::get('/ricerca/annuncio', [PublicController::class, 'searchAnnouncement'])->name('announcement.search');
+Route::get('/categoria/{category}', [PublicController::class, 'categoryShow'])->name('categoryShow');
 
 // ROTTE ANNOUNCEMENT CONTROLLER
 

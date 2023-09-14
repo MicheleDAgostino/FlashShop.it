@@ -156,6 +156,8 @@ return [
     */
 
     'providers' => ServiceProvider::defaultProviders()->merge([
+
+        TeamTNT\Scout\TNTSearchScoutServiceProvider::class,
         /*
          * Package Service Providers...
          */
