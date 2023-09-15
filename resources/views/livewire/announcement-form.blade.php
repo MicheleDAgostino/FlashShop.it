@@ -42,6 +42,8 @@
                         <span class="alert alert-error">{{ $message }}</span> 
                     @enderror
 
+                    <input type="file" class="file-input w-full max-w-xs " />
+
                     <textarea class="textarea textarea-bordered col-span-2 mt-4" placeholder="Descrivi il tuo articolo qui..." wire:model.lazy='body'></textarea>
                     @error('body') 
                         <span class="alert alert-error">{{ $message }}</span> 
