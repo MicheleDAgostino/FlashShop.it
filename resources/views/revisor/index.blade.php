@@ -33,7 +33,7 @@
                                   <div class="flex items-center space-x-3">
                                     <div class="avatar">
                                       <div class="mask mask-squircle w-12 h-12">
-                                        <img src="https://picsum.photos/150/150" alt="Avatar Tailwind CSS Component" />
+                                        <img src="{{!$announcement->images()->get()->isEmpty() ? Storage::url($announcement->images()->first()->path) : 'https://picsum.photos/150/150'}}" alt="Avatar Tailwind CSS Component" />
                                       </div>
                                     </div>
                                     <div>
@@ -47,7 +47,7 @@
                                 </td>
                                 <td>{{$announcement->price}}€</td>
                                 <th>
-                                  <label for="my-drawer" class="btn drawer-button" onclick="setSidebarContent('{{$announcement->body}}')">Dettagli</label>
+                                  <label for="my-drawer" class="btn drawer-button" onclick="setSidebarContent('{{$announcement->body}}', {{ json_encode($announcement->images->pluck('path')) }})">Dettagli</label>
                                 </th>
                                 <th class="flex justify-around">
                                   <form method="POST" action="{{route('revisor.accept_announcement', ['announcement' => $announcement])}}">
@@ -82,6 +82,12 @@
                               <p class="text-lg font-bold">Descrizione annuncio:</p>
                               <p id="sidebarDescription"></p>
                             </li>
+                            <li>
+                              <p class="text-lg font-bold">Immagini annuncio:</p>
+                              <div id="sidebarImg" class="flex flex-wrap">
+
+                              </div>
+                            </li>
                           </ul>
                         </div>
                       </div>
@@ -100,10 +106,24 @@
     </main>
 
     <script>
-      function setSidebarContent(body){
-          let sidebarDescription = document.querySelector('#sidebarDescription');
-          sidebarDescription.textContent = body;
-      }
+      function setSidebarContent(body, images){
+      let sidebarDescription = document.querySelector('#sidebarDescription');
+      let sidebarImg = document.querySelector('#sidebarImg');
+      sidebarDescription.textContent = body;
+
+    // Aggiungi le immagini alla sidebarImg
+      sidebarImg.innerHTML = '';
+      images.forEach(imagePath => {
+        const div = document.createElement('div');
+        div.innerHTML= `
+          <div class="w-28 mask mask-squircle">
+            <img src="{{ asset('storage/') }}/${imagePath}">
+          </div>
+        `;
+        sidebarImg.appendChild(div);
+      });
+    }
+
     </script>
 
 </x-layout>

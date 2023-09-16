@@ -15,7 +15,7 @@
 
         
     <section class="container mx-auto pt-24">
-        <div class="flex justify-center items-center">
+        <div class="flex justify-evenly items-center">
             <div class="w-full md:w-10/12 lg:w-6/12 bg-gray-100 shadow-xl rounded-lg p-14">
 
                 {{-- INIZIO FORM --}}
@@ -42,7 +42,10 @@
                         <span class="alert alert-error">{{ $message }}</span> 
                     @enderror
 
-                    <input type="file" class="file-input w-full max-w-xs " />
+                    <input type="file" name="images" multiple class="file-input file-input-bordered w-full max-w-xs mt-4" wire:model='temporary_images' />
+                    @error('temporary_images.*') 
+                        <span class="alert alert-error">{{ $message }}</span> 
+                    @enderror
 
                     <textarea class="textarea textarea-bordered col-span-2 mt-4" placeholder="Descrivi il tuo articolo qui..." wire:model.lazy='body'></textarea>
                     @error('body') 
@@ -56,6 +59,25 @@
                 
 
             </div>
+
+            @if (!empty($images))
+                <div class="w-4/12">
+                    <h3 class="text-2xl text-center mb-5 uppercase font-semibold">Photo preview:</h3>
+                    <div class="rounded-lg py-10 px-5 bg-violet-600 flex flex-wrap justify-evenly">
+
+                        @foreach ($images as $key => $image)
+                            <div class="avatar flex flex-col justify-center items-center">
+                                <div class="w-28 mask mask-squircle">
+                                <img src="{{$image->temporaryUrl()}}" alt="">
+                                </div>
+                                <button type="button" wire:click='removeImage({{$key}})' class="btn btn-error btn-xs mt-2">Elimina</button>
+                            </div>
+                        @endforeach
+                        
+                    </div>
+                </div> 
+            @endif
+            
         </div>
     </section>
 </div>

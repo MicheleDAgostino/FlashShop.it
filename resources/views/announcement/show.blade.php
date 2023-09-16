@@ -18,31 +18,38 @@
                 <div class="flex justify-evenly">
                     <div class="w-5/12 flex flex-col justify-center items-center">
 
-                        <div class="carousel carousel-center max-w-xl p-4 space-x-4 bg-base-200 rounded-box">
-                            <div class="carousel-item">
-                              <img src="https://picsum.photos/400/400" class="rounded-box" />
-                            </div> 
-                            <div class="carousel-item">
-                              <img src="https://picsum.photos/400/400" class="rounded-box" />
-                            </div> 
-                            <div class="carousel-item">
-                              <img src="https://picsum.photos/400/400" class="rounded-box" />
-                            </div> 
-                            <div class="carousel-item">
-                              <img src="https://picsum.photos/400/400" class="rounded-box" />
-                            </div> 
-                            <div class="carousel-item">
-                              <img src="https://picsum.photos/400/400" class="rounded-box" />
-                            </div> 
-                            <div class="carousel-item">
-                              <img src="https://picsum.photos/400/400" class="rounded-box" />
-                            </div> 
-                            <div class="carousel-item">
-                              <img src="https://picsum.photos/400/400" class="rounded-box" />
+                        @if ($announcement->images)
+                            <div class="carousel carousel-center max-w-xl p-4 space-x-4 bg-base-200 rounded-box">
+                                @foreach ($announcement->images as $image)
+                                    <div class="carousel-item">
+                                        <img src="{{Storage::url($image->path)}}" class="rounded-box" />     
+                                    </div>   
+                                @endforeach
                             </div>
-                          </div>
+                        @else
+                            <div class="carousel carousel-center max-w-xl p-4 space-x-4 bg-base-200 rounded-box">
+                                <div class="carousel-item">
+                                <img src="https://picsum.photos/400/400" class="rounded-box" />
+                                </div> 
+                                <div class="carousel-item">
+                                <img src="https://picsum.photos/400/400" class="rounded-box" />
+                                </div> 
+                                <div class="carousel-item">
+                                <img src="https://picsum.photos/400/400" class="rounded-box" />
+                                </div> 
+                                <div class="carousel-item">
+                                <img src="https://picsum.photos/400/400" class="rounded-box" />
+                                </div> 
+                                <div class="carousel-item">
+                                <img src="https://picsum.photos/400/400" class="rounded-box" />
+                                </div> 
+                                <div class="carousel-item">
+                                <img src="https://picsum.photos/400/400" class="rounded-box" />
+                                </div>
+                            </div>  
+                        @endif
+                        </div>
 
-                    </div>
                     <div class="w-3/12 flex flex-col justify-center bg-base-200 rounded-lg">
                         <div class="chat chat-start">
                             <div class="chat-header">

@@ -113,6 +113,9 @@ class AnnouncementForm extends Component
             }
         }
 
+        $this->announcement->user()->associate(Auth::user());
+        $this->announcement->save();
+
         session()->flash('message', 'Articolo inserito con successo, sarà pubblicato dopo la revisione');
         $this->reset();
 

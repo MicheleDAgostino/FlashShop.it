@@ -1,5 +1,9 @@
 <div class="card card-compact w-96 bg-base-200 shadow-xl mt-14">
-    <figure><img src="https://picsum.photos/400/250" alt="Shoes" /></figure>
+    <figure>
+      <img 
+        src="{{!$announcement->images()->get()->isEmpty() ? Storage::url($announcement->images()->first()->path) : 'https://picsum.photos/400/250'}}"
+        alt="Foto annuncio" />
+    </figure>
     <div class="card-body">
       <h2 class="card-title">{{$announcement->title}}</h2>
       <p>{{$announcement->body}}</p>
