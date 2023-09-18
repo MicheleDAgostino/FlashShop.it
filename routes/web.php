@@ -22,6 +22,9 @@ Route::get('/lavora/con/noi', [PublicController::class, 'workWithUs'])->name('wo
 Route::get('/ricerca/annuncio', [PublicController::class, 'searchAnnouncement'])->name('announcement.search');
 Route::get('/categoria/{category}', [PublicController::class, 'categoryShow'])->name('categoryShow');
 
+// ROTTA PER IL CAMBIO LINGUA
+Route::post('/lingua/{lang}', [PublicController::class, 'setLanguage'])->name('set_language_locale');
+
 // ROTTE ANNOUNCEMENT CONTROLLER
 
 Route::middleware(['auth'])->group(function(){

@@ -4,7 +4,7 @@
     <header class="container">
         <div class="flex flex-wrap justify-evenly items-center flex-col min-h-screen">
             <div class="w-6/12 text-center">
-                <h1 class="text-5xl">Compra e vendi in modo <strong class="underline decoration-wavy">FLASH</strong></h1>
+                <h1 class="text-5xl">{{__('ui.Titolo')}} <strong class="underline decoration-wavy">FLASH</strong></h1>
             </div>
             <div class="w-6/12 flex justify-evenly items-center">
                 <form method="GET" action="{{route('announcement.search')}}" class="join">

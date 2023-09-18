@@ -60,7 +60,21 @@
       {{-- FINE DROPDOWN MENU PER UTENTI GUEST --}}
     @endauth
 
-    
+    <div class="flex-none">
+      <ul class="menu menu-horizontal px-1">
+        <li>
+          <details>
+            <summary>
+              Parent
+            </summary>
+            <ul class="p-2 bg-base-100">
+              <li><x-_locale lang="it"/></li>
+              <li><x-_locale lang="en"/></li>
+            </ul>
+          </details>
+        </li>
+      </ul>
+    </div>
       
     </div>
 </nav>

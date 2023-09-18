@@ -33,7 +33,7 @@
                                   <div class="flex items-center space-x-3">
                                     <div class="avatar">
                                       <div class="mask mask-squircle w-12 h-12">
-                                        <img src="{{!$announcement->images()->get()->isEmpty() ? Storage::url($announcement->images()->first()->path) : 'https://picsum.photos/150/150'}}" alt="Avatar Tailwind CSS Component" />
+                                        <img src="{{!$announcement->images()->get()->isEmpty() ? $announcement->images()->first()->getUrl(400, 400) : 'https://picsum.photos/150/150'}}" alt="Avatar Tailwind CSS Component" />
                                       </div>
                                     </div>
                                     <div>

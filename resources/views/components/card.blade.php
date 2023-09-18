@@ -1,7 +1,7 @@
 <div class="card card-compact w-96 bg-base-200 shadow-xl mt-14">
     <figure>
       <img 
-        src="{{!$announcement->images()->get()->isEmpty() ? Storage::url($announcement->images()->first()->path) : 'https://picsum.photos/400/250'}}"
+        src="{{!$announcement->images()->get()->isEmpty() ? $announcement->images()->first()->getUrl(400, 400) : 'https://picsum.photos/400/250'}}"
         alt="Foto annuncio" />
     </figure>
     <div class="card-body">

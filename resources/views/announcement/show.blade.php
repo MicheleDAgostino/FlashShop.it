@@ -18,11 +18,11 @@
                 <div class="flex justify-evenly">
                     <div class="w-5/12 flex flex-col justify-center items-center">
 
-                        @if ($announcement->images)
+                        @if (count($announcement->images))
                             <div class="carousel carousel-center max-w-xl p-4 space-x-4 bg-base-200 rounded-box">
                                 @foreach ($announcement->images as $image)
                                     <div class="carousel-item">
-                                        <img src="{{Storage::url($image->path)}}" class="rounded-box" />     
+                                        <img src="{{$image->getUrl(400, 400)}}" class="rounded-box" />     
                                     </div>   
                                 @endforeach
                             </div>

@@ -2,11 +2,13 @@
 
 namespace App\Livewire;
 
-use App\Models\Announcement;
-use App\Models\Category;
-use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
+use App\Models\Category;
+use App\Jobs\ResizeImage;
+use App\Models\Announcement;
 use Livewire\WithFileUploads;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
 
 class AnnouncementForm extends Component
 {
@@ -65,24 +67,6 @@ class AnnouncementForm extends Component
         return view('livewire.announcement-form');
     }
 
-    // public function store(){
-
-    //     $this->validate();
-    //     $category = Category::find($this->category);
-
-    //     $announcement = $category->announcements()->create([
-    //         'title' => $this->title,
-    //         'body' => $this->body,
-    //         'price' => $this->price
-    //     ]);
-
-    //     Auth::user()->announcements()->save($announcement);
-
-    //     $this->reset();
-
-    //     session()->flash('message', 'Annuncio inserito con successo!');
-
-    // }
 
     public function updatedTemporaryImages(){
 
@@ -109,8 +93,14 @@ class AnnouncementForm extends Component
         $this->announcement = Category::find($this->category)->announcements()->create($this->validate());
         if (count($this->images)) {
             foreach ($this->images as $image) {
-                $this->announcement->images()->create(['path' => $image->store('images', 'public')]);
+                
+                $newFileName = "announcements/{$this->announcement->id}";
+                $newImage = $this->announcement->images()->create(['path' => $image->store($newFileName, 'public')]);
+
+                dispatch(new ResizeImage($newImage->path , 400 , 400));
             }
+
+            File::deleteDirectory(storage_path('/app/livewire-tmp'));
         }
 
         $this->announcement->user()->associate(Auth::user());
